@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <div id="app">
+
+        <h1>CORS 샘플 </h1>
+
+        <button v-on:click="saveData">저장</button>
+
+    </div>
+
+    <!--추가 스크립트-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <script>
+
+        var app = new Vue({
+            el: '#app', //웹페이지내 마운트될 html요소지정
+            data: {
+                boards: [],
+                article:{
+                    id:0,
+                    title:'노드 샘플 데이터',
+                    categoryid:1,
+                    contents:'내용입니다.',
+                    displayyn:true,
+                    boardId:1,
+                }
+            },
+            created: function () {
+
+                //데이터 목록 조회
+                axios.get('http://localhost:3000/boards')
+                    .then(function (response) {
+                        console.log(response.data);
+                        this.boards = response.data;
+                    }.bind(this))
+                    .catch(function (err) {
+                        console.log(err);
+                    })
+            },
+            methods:{
+                moveCreate:function(){
+                    location.href="/boards/create.html";
+                },
+                saveData:function(){
+
+                        //데이터 서버로 전송 저장처리
+                        axios.post('http://localhost:3000/articles',this.article)
+                        .then(function(response){
+                            console.log(response.data);
+                            alert("등록완료");
+                        }.bind(this))
+                        .catch(function(err){
+                            console.log(err);
+                        })
+                }
+            }
+
+        });
+
+
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,16 @@
+/* Add here all your css styles (customizations) */
+
+/* Blog Contents */
+.blogcontent {
+
+}
+
+.blogcontent img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+    .blogcontent a {
+        color: black;
+    }
